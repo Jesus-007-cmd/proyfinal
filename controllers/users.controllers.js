@@ -1,5 +1,5 @@
 const usersmodels = require('../models/users.models');
-
+const bcrypt = require('bcrypt');
 // crear nuestro CRUD
 
 // GET ( obtener )
@@ -19,11 +19,11 @@ const getUsers = async (req, res) => {
 // POST ( crear )
 const createUser = async (req, res) => {
     const { correo, nombre, contraseña, edad } = req.body;
-
+    const hash= bcrypt.hashSync(contraseña, 10) //clase  17 de mayo despues de las 8 pm
     const user = new usersmodels({
         correo: correo,
         nombre: nombre,
-        contraseña: contraseña,
+        contraseña: hash, //clase  17 de mayo despues de las 8 pm
         edad: edad
     })
 
